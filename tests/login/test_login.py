@@ -1,6 +1,7 @@
 import pytest
 
 from fixtures.auth.model import AuthUserModel
+from fixtures.common_models import AuthInvalidResponse
 from fixtures.constants import ResponseText
 from fixtures.register.model import RegisterUserModel, RegisterUserResponse
 
@@ -17,7 +18,7 @@ class TestLoginUser:
         res = app.register.register(data=data, type_response=RegisterUserResponse)
         assert res.status_code == 201
         assert res.data.message == ResponseText.MESSAGE_REGISTER_USER
-        res_auth = app.auth.login(data=data, type_response=None)
+        res_auth = app.auth.login(data=data)
         assert res_auth.status_code == 200
 
     def test_login_user_with_not_registred_data(self, app):
@@ -28,7 +29,7 @@ class TestLoginUser:
             3. Check response
         """
         data = AuthUserModel.random()
-        res = app.auth.login(data=data)
+        res = app.auth.login(data=data, type_response=AuthInvalidResponse)
         assert res.status_code == 401
 
     @pytest.mark.parametrize("field", ["username", "password"])
@@ -41,5 +42,5 @@ class TestLoginUser:
         """
         data = AuthUserModel.random()
         setattr(data, field, None)
-        res = app.auth.login(data)
+        res = app.auth.login(data, type_response=AuthInvalidResponse)
         assert res.status_code == 401

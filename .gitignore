@@ -133,4 +133,3 @@ dmypy.json
 
 #secrets
 .env
-.idea/
