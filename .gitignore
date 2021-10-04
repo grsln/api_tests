@@ -133,4 +133,3 @@ dmypy.json
 
 #secrets
 .env
-**/__pycache__/**

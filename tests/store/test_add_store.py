@@ -7,6 +7,8 @@ class TestAddStore:
         1. Try to add new store
         2. Check that status code is 201
         """
-        name_store = StoreModel.random()
-        res = app.store.add_new_store(name_store=name_store, header=auth_user.header)
+        store = StoreModel.random()
+        res = app.store.add_new_store(
+            name_store=store.name_store, header=auth_user.header
+        )
         assert res.status_code == 201

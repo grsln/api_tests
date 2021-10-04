@@ -66,7 +66,6 @@ class TestUpdateUserInfo:
             5. Check response
         """
         data = UserInfoModel.random()
-
         res = app.userinfo.update_user_info(
             user_id=uuid,
             data=data,
